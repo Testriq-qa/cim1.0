@@ -80,7 +80,7 @@ const Footer = () => {
           >
             <div className="mb-6">
               <Image
-                src="/InfoMedia-LOGO.png"
+                src="/InfoMedia-LOGO-white.png"
                 alt="Cinute InfoMedia Logo"
                 width={160}
                 height={53}
