@@ -12,14 +12,12 @@ import Footer from './components/Footer'
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      <Header />
       <Hero />
       <Services />
       <About />
       <Testimonials />
       <FAQ />
       <Contact />
-      <Footer />
     </main>
   )
 }

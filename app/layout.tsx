@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import Footer from './components/Footer'
+import Header from './components/Header'
 
 export const metadata: Metadata = {
   title: {
@@ -285,7 +287,9 @@ export default function RootLayout({
         </a>
         
         <div id="main-content">
+          <Header />
           {children}
+          <Footer />
         </div>
         
         {/* Schema.org breadcrumb will be added by individual pages */}

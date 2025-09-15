@@ -172,10 +172,10 @@ const Footer = () => {
               <div>
                 <p className="text-gray-400 text-sm mb-1">Email</p>
                 <a
-                  href="mailto:hello@cinute-infomedia.com"
+                  href="mailto:contact@cinuteinfomedia.com"
                   className="text-brand-gold hover:text-primary-400 transition-colors duration-300"
                 >
-                  hello@cinute-infomedia.com
+                  contact@cinuteinfomedia.com
                 </a>
               </div>
               
@@ -212,7 +212,7 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {currentYear} Cinute InfoMedia. All rights reserved.
+              © {currentYear} Cinute Digital Pvt. Ltd.  All rights reserved.
             </p>
             
             <div className="flex items-center space-x-6 text-sm text-gray-400">

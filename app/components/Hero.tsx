@@ -51,7 +51,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-3xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+            className="text-3xl sm:text-6xl lg:text-7xl font-bold text-white my-7 leading-tight"
           >
             Transform Your
             <span className="block bg-gradient-to-r from-brand-gold via-brand-cyan to-brand-purple bg-clip-text text-transparent animate-gradient pb-2">
@@ -102,7 +102,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                className="flex flex-col items-center p-6 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer brand-shadow"
+                className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer brand-shadow"
               >
                 <div className={`p-3 rounded-lg bg-gradient-to-r ${service.color} mb-3 group-hover:scale-110 transition-transform duration-300`}>
                   <service.icon className="h-6 w-6 text-white" />
@@ -128,7 +128,7 @@ const Hero = () => {
               <span className="text-white text-center">Expert Support</span>
             </div>
             <div className="flex flex-col items-center p-6 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-              <span className="text-4xl font-bold bg-gradient-to-r from-brand-purple to-brand-purple bg-clip-text text-transparent mb-2">100%</span>
+              <span className="text-4xl font-bold bg-gradient-to-r from-brand-purple to-brand-purple bg-clip-text text-transparent mb-2">98%</span>
               <span className="text-white text-center">Client Satisfaction</span>
             </div>
           </motion.div>
