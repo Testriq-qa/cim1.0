@@ -61,7 +61,7 @@ const FAQ = () => {
   }
 
   return (
-    <section id="faq" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section id="faq" className="py-16 px-8 md:px-12 xl:px-16 bg-gradient-to-br from-gray-50 to-white">
       {/* Structured Data */}
       <script
         type="application/ld+json"

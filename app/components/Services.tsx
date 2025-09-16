@@ -168,7 +168,7 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="py-20 bg-gradient-to-br from-neutral-50 to-gray-100"
+      className="py-16 px-8 md:px-12 xl:px-16 bg-gradient-to-br from-neutral-50 to-gray-100"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -190,7 +190,7 @@ const Services = () => {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-12">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -278,7 +278,7 @@ const Services = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="flex flex-row justify-around bg-gradient-to-r from-white to-gray-50 p-10 rounded-3xl brand-shadow-lg border border-white/50"
+          className="flex flex-col lg:flex-row gap-10 justify-around bg-gradient-to-r from-white to-gray-50 p-10 rounded-3xl brand-shadow-lg border border-white/50"
         >
           <div className="flex justify-center flex-col items-center ">
             <p className="text-lg text-neutral-700 mb-4">

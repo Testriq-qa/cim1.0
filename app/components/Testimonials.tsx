@@ -68,7 +68,7 @@ const Testimonials = () => {
   }
 
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <section id="testimonials" className="py-16 px-8 md:px-12 xl:px-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       {/* Structured Data */}
       <script
         type="application/ld+json"

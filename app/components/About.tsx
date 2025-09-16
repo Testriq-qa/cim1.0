@@ -63,7 +63,7 @@ const About = () => {
   ]
 
   return (
-    <section id="about" className="py-20 bg-white relative overflow-hidden">
+    <section id="about" className="py-16 px-8 md:px-12 xl:px-16 bg-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-10 w-64 h-64 bg-gradient-to-br from-brand-gold/20 to-primary-400/20 rounded-full mix-blend-multiply filter blur-3xl"></div>
@@ -153,7 +153,7 @@ const About = () => {
                 viewport={{ once: true }}
                 className="text-center p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-200 card-hover brand-shadow group"
               >
-                <div className={`text-4xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`text-2xl md:text-4xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300`}>
                   {stat.number}
                 </div>
                 <div className="text-neutral-700 font-medium">
@@ -180,7 +180,7 @@ const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
           {values.map((value, index) => (
             <motion.div
               key={value.title}

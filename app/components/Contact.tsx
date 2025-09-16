@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  EnvelopeIcon,
-  PhoneIcon,
-  MapPinIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
+  MdOutlineEmail,
+  MdOutlinePhone,
+  MdOutlineLocationOn,
+  MdOutlineAccessTime,
+} from "react-icons/md";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -65,14 +66,21 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: EnvelopeIcon,
+      icon: MdOutlineEmail,
       label: "Email Us",
       value: "contact@cinuteinfomedia.com",
       href: "mailto:contact@cinuteinfomedia.com",
       gradient: "from-brand-gold to-primary-600",
     },
     {
-      icon: PhoneIcon,
+      icon: FaWhatsapp,
+      label: "WhatsApp Us",
+      value: "+91 7700 995 410",
+      href: "https://wa.me/917700995410",
+      gradient: "from-green-400 to-green-600",
+    },
+    {
+      icon: MdOutlinePhone,
       label: "Call Us",
       value: (
         <>
@@ -91,7 +99,7 @@ const Contact = () => {
       gradient: "from-brand-purple to-brand-magenta",
     },
     {
-      icon: MapPinIcon,
+      icon: MdOutlineLocationOn,
       label: "Visit Us",
       value:
         "Office # 1, 2nd Floor, Ashley Towers, Kanakia Rd, Vagad Nagar, Beverly Park, Mira Road East, Mira Bhayandar, Maharashtra 401107",
@@ -99,7 +107,7 @@ const Contact = () => {
       gradient: "from-brand-cyan to-brand-teal",
     },
     {
-      icon: ClockIcon,
+      icon: MdOutlineAccessTime,
       label: "Business Hours",
       value: (
         <>
@@ -115,7 +123,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-20 bg-hero-gradient relative overflow-hidden"
+      className="py-16 px-8 md:px-12 xl:px-16 bg-hero-gradient relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">

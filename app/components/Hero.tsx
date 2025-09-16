@@ -22,7 +22,7 @@ const Hero = () => {
   ]
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-hero-gradient overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center bg-hero-gradient overflow-hidden py-16 px-6 md:px-12 xl:px-16">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-brand-gold rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
@@ -51,7 +51,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-3xl sm:text-6xl lg:text-7xl font-bold text-white my-7 leading-tight"
+            className="text-3xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight"
           >
             Transform Your
             <span className="block bg-gradient-to-r from-brand-gold via-brand-cyan to-brand-purple bg-clip-text text-transparent animate-gradient pb-2">
