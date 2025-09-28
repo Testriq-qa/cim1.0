@@ -152,7 +152,7 @@ const Testimonials = () => {
           </div>
           <div className="text-center">
             <div className="text-4xl font-bold bg-gradient-to-r from-brand-cyan to-brand-purple bg-clip-text text-transparent mb-2">
-              100+
+              50+
             </div>
             <div className="text-gray-300">Projects Completed</div>
           </div>

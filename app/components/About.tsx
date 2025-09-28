@@ -37,18 +37,18 @@ const About = () => {
       gradient: "from-brand-gold to-primary-600"
     },
     { 
-      number: "25+", 
-      label: "Happy Clients",
+      number: "100%", 
+      label: "Job Success",
       gradient: "from-brand-purple to-brand-magenta"
     },
     { 
-      number: "3x", 
+      number: "7x", 
       label: "Average ROI Increase",
       gradient: "from-brand-cyan to-brand-teal"
     },
     { 
-      number: "24/7", 
-      label: "Expert Support",
+      number: "5/5", 
+      label: "Client Ratings",
       gradient: "from-brand-orange to-accent-orange-600"
     }
   ]

@@ -238,24 +238,24 @@ const Footer = () => {
             </p>
 
             <div className="flex items-center space-x-6 text-sm text-gray-400">
-              <a
-                href="#"
+              <Link
+                href="/privacy-policy"
                 className="hover:text-brand-gold transition-colors duration-300"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/terms-of-service"
                 className="hover:text-brand-purple transition-colors duration-300"
               >
                 Terms of Service
-              </a>
-              <a
-                href="#"
+              </Link>
+             <Link
+                href="/cookie-policy"
                 className="hover:text-brand-cyan transition-colors duration-300"
               >
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>
