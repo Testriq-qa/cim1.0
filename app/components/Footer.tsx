@@ -8,6 +8,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
+    { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
@@ -80,6 +81,7 @@ const Footer = () => {
             className="lg:col-span-1"
           >
             <div className="mb-6">
+              <Link href="/">
               <Image
                 src="/InfoMedia-LOGO-white.png"
                 alt="Cinute InfoMedia Logo"
@@ -87,6 +89,7 @@ const Footer = () => {
                 height={53}
                 className="h-10 w-auto brightness-110"
               />
+            </Link>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Complete digital transformation agency helping businesses grow
