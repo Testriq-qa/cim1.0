@@ -10,8 +10,25 @@ import {
 } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  service: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  service?: string;
+  message?: string;
+}
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
@@ -20,8 +37,10 @@ const Contact = () => {
     message: "",
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | ''>('');
 
   const services = [
     "Web Development",
@@ -33,6 +52,48 @@ const Contact = () => {
     "Complete Digital Transformation",
   ];
 
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Phone validation (optional but if provided, should be valid)
+    if (formData.phone.trim()) {
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      if (!phoneRegex.test(formData.phone.replace(/[\s\-\(\)]/g, ''))) {
+        newErrors.phone = "Please enter a valid phone number";
+      }
+    }
+
+    // Service validation
+    if (!formData.service) {
+      newErrors.service = "Please select a service";
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = "Project details are required";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Please provide more details (at least 10 characters)";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -43,25 +104,97 @@ const Contact = () => {
       ...prev,
       [name]: value,
     }));
+
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  const submitToAPI = async (data: FormData): Promise<boolean> => {
+    try {
+      // This is a placeholder for actual API integration
+      // You can replace this with your actual API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        return true;
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      return false;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    
+    if (!validateForm()) {
+      return;
+    }
 
-    // Simulate form submission
-    setTimeout(() => {
+    setIsSubmitting(true);
+    setSubmitMessage("");
+    setSubmitStatus('');
+
+    try {
+      // Try to submit to API first
+      const apiSuccess = await submitToAPI(formData);
+      
+      if (apiSuccess) {
+        setSubmitStatus('success');
+        setSubmitMessage("Thank you! We'll get back to you within 2 hours.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          service: "",
+          message: "",
+        });
+      } else {
+        // Fallback: Create mailto link for manual sending
+        const subject = encodeURIComponent(`New Contact Form Submission - ${formData.service}`);
+        const body = encodeURIComponent(
+          `Name: ${formData.name}\n` +
+          `Email: ${formData.email}\n` +
+          `Phone: ${formData.phone}\n` +
+          `Company: ${formData.company}\n` +
+          `Service: ${formData.service}\n` +
+          `Message: ${formData.message}`
+        );
+        
+        const mailtoLink = `mailto:contact@cinuteinfomedia.com?subject=${subject}&body=${body}`;
+        window.open(mailtoLink, '_blank');
+        
+        setSubmitStatus('success');
+        setSubmitMessage("Your email client has been opened. Please send the email to complete your inquiry.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          service: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitMessage("There was an error submitting your form. Please try again or contact us directly.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitMessage("Thank you! We'll get back to you within 2 hours.");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        service: "",
-        message: "",
-      });
-    }, 2000);
+    }
   };
 
   const contactInfo = [
@@ -256,27 +389,52 @@ const Contact = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center py-8"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-brand-gold to-brand-cyan rounded-full flex items-center justify-center mx-auto mb-4 brand-shadow">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
+                  <div className={`w-16 h-16 ${submitStatus === 'success' ? 'bg-gradient-to-r from-green-400 to-green-600' : 'bg-gradient-to-r from-red-400 to-red-600'} rounded-full flex items-center justify-center mx-auto mb-4 brand-shadow`}>
+                    {submitStatus === 'success' ? (
+                      <svg
+                        className="w-8 h-8 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-8 h-8 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    )}
                   </div>
-                  <p className="text-white text-lg font-semibold">
+                  <p className="text-white text-lg font-semibold mb-4">
                     {submitMessage}
                   </p>
+                  <button
+                    onClick={() => {
+                      setSubmitMessage("");
+                      setSubmitStatus('');
+                    }}
+                    className="bg-gradient-to-r from-brand-gold to-primary-600 hover:from-primary-600 hover:to-brand-gold text-white font-bold py-2 px-6 rounded-lg transition-all duration-300"
+                  >
+                    Send Another Message
+                  </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label
@@ -292,9 +450,12 @@ const Contact = () => {
                         required
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300"
+                        className={`w-full px-4 py-3 bg-white/10 border ${errors.name ? 'border-red-400' : 'border-white/20'} rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300`}
                         placeholder="Enter your full name"
                       />
+                      {errors.name && (
+                        <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+                      )}
                     </div>
 
                     <div>
@@ -311,9 +472,12 @@ const Contact = () => {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300"
+                        className={`w-full px-4 py-3 bg-white/10 border ${errors.email ? 'border-red-400' : 'border-white/20'} rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300`}
                         placeholder="Enter your email"
                       />
+                      {errors.email && (
+                        <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
@@ -331,9 +495,12 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300"
+                        className={`w-full px-4 py-3 bg-white/10 border ${errors.phone ? 'border-red-400' : 'border-white/20'} rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300`}
                         placeholder="Enter your phone number"
                       />
+                      {errors.phone && (
+                        <p className="text-red-400 text-sm mt-1">{errors.phone}</p>
+                      )}
                     </div>
 
                     <div>
@@ -355,36 +522,37 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="service"
-                        className="block text-sm font-medium text-gray-200 mb-2"
-                      >
-                        Service Needed *
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        required
-                        value={formData.service}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300"
-                      >
-                        <option value="" className="text-neutral-900">
-                          Select a service
+                  <div>
+                    <label
+                      htmlFor="service"
+                      className="block text-sm font-medium text-gray-200 mb-2"
+                    >
+                      Service Needed *
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      required
+                      value={formData.service}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 bg-white/10 border ${errors.service ? 'border-red-400' : 'border-white/20'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300`}
+                    >
+                      <option value="" className="text-neutral-900">
+                        Select a service
+                      </option>
+                      {services.map((service) => (
+                        <option
+                          key={service}
+                          value={service}
+                          className="text-neutral-900"
+                        >
+                          {service}
                         </option>
-                        {services.map((service) => (
-                          <option
-                            key={service}
-                            value={service}
-                            className="text-neutral-900"
-                          >
-                            {service}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      ))}
+                    </select>
+                    {errors.service && (
+                      <p className="text-red-400 text-sm mt-1">{errors.service}</p>
+                    )}
                   </div>
 
                   <div>
@@ -401,9 +569,12 @@ const Contact = () => {
                       required
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300 resize-none"
+                      className={`w-full px-4 py-3 bg-white/10 border ${errors.message ? 'border-red-400' : 'border-white/20'} rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-300 resize-none`}
                       placeholder="Tell us about your project, goals, and timeline..."
                     />
+                    {errors.message && (
+                      <p className="text-red-400 text-sm mt-1">{errors.message}</p>
+                    )}
                   </div>
 
                   <motion.button
@@ -435,27 +606,16 @@ const Contact = () => {
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                           ></path>
                         </svg>
-                        Sending...
+                        Sending Message...
                       </>
                     ) : (
-                      <>
-                        Share Your Vision
-                        <svg
-                          className="ml-2 h-5 w-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                          />
-                        </svg>
-                      </>
+                      "Send Message"
                     )}
                   </motion.button>
+
+                  <p className="text-gray-400 text-sm text-center">
+                    By submitting this form, you agree to our privacy policy and terms of service.
+                  </p>
                 </form>
               )}
             </div>

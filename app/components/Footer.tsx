@@ -8,6 +8,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
+    { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
@@ -80,6 +81,7 @@ const Footer = () => {
             className="lg:col-span-1"
           >
             <div className="mb-6">
+              <Link href="/">
               <Image
                 src="/InfoMedia-LOGO-white.png"
                 alt="Cinute InfoMedia Logo"
@@ -87,6 +89,7 @@ const Footer = () => {
                 height={53}
                 className="h-10 w-auto brightness-110"
               />
+            </Link>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Complete digital transformation agency helping businesses grow
@@ -238,24 +241,24 @@ const Footer = () => {
             </p>
 
             <div className="flex items-center space-x-6 text-sm text-gray-400">
-              <a
-                href="#"
+              <Link
+                href="/privacy-policy"
                 className="hover:text-brand-gold transition-colors duration-300"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/terms-of-service"
                 className="hover:text-brand-purple transition-colors duration-300"
               >
                 Terms of Service
-              </a>
-              <a
-                href="#"
+              </Link>
+             <Link
+                href="/cookie-policy"
                 className="hover:text-brand-cyan transition-colors duration-300"
               >
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>

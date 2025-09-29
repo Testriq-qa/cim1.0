@@ -17,6 +17,7 @@ const Header = () => {
   }, []);
 
   const navItems = [
+    { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
@@ -29,6 +30,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <div className="relative mr-3">
+              <a href="/">
               <Image
                 src="/InfoMedia-LOGO.png" // Your logo file path
                 alt="Cinute InfoMedia Logo"
@@ -37,6 +39,7 @@ const Header = () => {
                 className="h-12 w-auto transition-all duration-300 brightness-100"
                 priority
               />
+            </a>
             </div>
           </div>
 
